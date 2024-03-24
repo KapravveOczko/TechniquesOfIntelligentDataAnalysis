@@ -15,6 +15,7 @@ class Population:
         self.with_variants = with_variants
         self.population = [Entity(coordinates, self.func) for coordinates in np.random.uniform(low=bounds[0], high=bounds[1], size=(pop_size, dimension))]
         self.best_individual = self.population[np.argmin([ind.value for ind in self.population])]
+        self.best_values_list = [self.best_individual.value]
 
     def calculate_best_value(self):
         for _ in range(self.max_generations):
@@ -30,8 +31,9 @@ class Population:
                     self.population[i] = trial
                     if self.best_individual.value > trial.value:
                         self.best_individual = trial
+            self.best_values_list.append(self.best_individual.value)
 
-        return self.best_individual.coordinates, self.best_individual.value
+        return self.best_individual.coordinates, self.best_individual.value, self.best_values_list
 
     def get_mutant(self):
         a, b, c = np.random.choice(self.pop_size, 3, replace=False)
