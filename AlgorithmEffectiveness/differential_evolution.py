@@ -3,7 +3,7 @@ from entity import Entity
 import numpy as np
 
 
-class Population:
+class Different_Evolution:
     def __init__(self, func, bounds, pop_size=15, max_generations=1000, F=0.5, CR=0.5, dimension=20, with_variants=False):
         self.func = func
         self.bounds = bounds
