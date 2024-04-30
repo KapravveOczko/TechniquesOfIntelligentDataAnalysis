@@ -16,7 +16,7 @@ class Bat:
         self.set_frequency()
 
         self.volume = random.uniform(1, 2)
-        # emision = r
+        # emission = r
         self.emission = random.random()
 
         self.alpha = alpha
