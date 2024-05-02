@@ -4,21 +4,22 @@ from bat.BatPop import BatPop
 from bat.Bat import Bat
 
 
-def bat_algorithm_classic(pop_count, function, function_bounds_min, function_bounds_max, frequency_min, frequency_max,
-                          alpha, epsilon, iters):
-
-    best_x_for_printer = []
-    best_value_for_printer = []
+def bat_algorithm_classic(pop_count, function, function_bounds, frequency_min, frequency_max,
+                          alpha, epsilon, iters, dimensions):
+    bat_best_results = []
     bat_pop = BatPop(function)
 
     for i in range(pop_count):
-        bat_pop.append_bat(Bat(random.uniform(function_bounds_min, function_bounds_max), frequency_min, frequency_max,
-                               alpha, epsilon))
+        new_bat = Bat(function_bounds, frequency_min, frequency_max,
+                               alpha, epsilon, dimensions)
+        new_bat.set_score(function)
+        bat_pop.append_bat(new_bat)
 
     for i in range(iters):
         for bat in bat_pop.bat_pop:
             bat.set_position()
-            bat.set_velocity(bat_pop.best_bat_x)
+            bat.set_velocity(bat_pop.best_bat_coordinates)
+            bat.set_score(function)
 
         bat_pop.get_average()
 
@@ -26,10 +27,10 @@ def bat_algorithm_classic(pop_count, function, function_bounds_min, function_bou
             bat.set_position_after_setting_position(bat_pop.average_volume)
             bat.set_volume()
             bat.set_frequency()
+            if bat.score < bat_pop.best_bat_score:
+                bat_pop.best_bat_score = bat.score
+                bat_pop.best_bat_coordinates = bat.coordinates
 
-        bat_pop.set_best_bat_x()
+        bat_best_results.append(bat_pop.best_bat_score)
 
-        best_x_for_printer.append(bat_pop.best_bat_x)
-        best_value_for_printer.append(function(bat_pop.best_bat_x))
-
-    return bat_pop.best_bat_x, bat_pop.function(bat_pop.best_bat_x), best_x_for_printer, best_value_for_printer
+    return bat_best_results

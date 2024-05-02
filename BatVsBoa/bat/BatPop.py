@@ -1,22 +1,19 @@
+from math import inf
+
 class BatPop(object):
 
     def __init__(self, function):
         self.bat_pop = []
         self.function = function
         self.average_volume = 0
-        self.best_bat_x = 0
+        self.best_bat_score = inf
+        self.best_bat_coordinates = []
 
-    def set_best_bat_x(self):
-        best_x = self.best_bat_x
-
-        for x in self.bat_pop:
-            if self.function(x) > self.function(best_x):
-                best_x = x
-
-        self.best_bat_x = best_x
-
-    def append_bat(self, Bat):
-        self.bat_pop.append(Bat)
+    def append_bat(self, bat):
+        if bat.score < self.best_bat_score:
+            self.best_bat_score = bat.score
+            self.best_bat_coordinates = bat.coordinates
+        self.bat_pop.append(bat)
 
     def get_average(self):
         result = 0

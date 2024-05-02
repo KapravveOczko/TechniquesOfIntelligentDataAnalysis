@@ -1,18 +1,18 @@
 import random
 import numpy as np
-
+from math import inf
 
 class Bat:
 
-    def __init__(self, x, frequency_min, frequency_max, alpha, epsilon):
-        self.x = x
-        self.velocity = 0
+    def __init__(self, function_bounds, frequency_min, frequency_max, alpha, epsilon, dimensions):
+        self.coordinates = [np.random.uniform(function_bounds['min'], function_bounds['max']) for i in range(dimensions)]
+        self.velocity = np.zeros(dimensions)
 
-        self.score = 0
+        self.score = inf
 
         self.frequency_min = frequency_min
         self.frequency_max = frequency_max
-        self.frequency = 0
+        self.frequency = np.zeros(dimensions)
         self.set_frequency()
 
         self.volume = random.uniform(1, 2)
@@ -26,17 +26,17 @@ class Bat:
         self.frequency = self.frequency_min + (self.frequency_max - self.frequency_min) * random.random()
 
     def set_score(self, function):
-        self.score = function(self.x)
+        self.score = function(self.coordinates)
 
-    def set_velocity(self, best_bat_x):
-        self.velocity = self.velocity + (best_bat_x - self.x) * self.frequency
+    def set_velocity(self, best_bat_coordinates):
+        self.velocity = self.velocity + (best_bat_coordinates - self.coordinates) * self.frequency
 
     def set_position(self):
-        self.x = self.x + self.velocity
+        self.coordinates = self.coordinates + self.velocity
 
     def set_position_after_setting_position(self, average_volume):
         if random.random() < self.emission:
-            self.x = self.x + random.random() * average_volume
+            self.coordinates = self.coordinates + random.random() * average_volume
 
     def set_volume(self):
         self.volume = self.alpha * self.volume

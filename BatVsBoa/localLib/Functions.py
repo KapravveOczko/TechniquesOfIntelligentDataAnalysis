@@ -1,10 +1,9 @@
 import numpy as np
 
-rosenbrock_bounds = [-2.048, 2.048]
-rastrigin_bounds = [-5.12, 5.12]
-sphere_bounds = [-100, 100]
-griewank_bounds = [-600, 600]
-
+rosenbrock_bounds = {'min': -2.048, 'max': 2.048}
+rastrigin_bounds = {'min': -5.12, 'max': 5.12}
+sphere_bounds = {'min': -100, 'max': 100}
+griewank_bounds = {'min': -600, 'max': 600}
 
 def rastrigin_function(x):
     n = len(x)
