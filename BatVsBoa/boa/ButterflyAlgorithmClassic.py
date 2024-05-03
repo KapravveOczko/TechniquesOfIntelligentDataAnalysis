@@ -2,29 +2,46 @@ import random
 from boa.ButterflyPop import ButterflyPop
 from boa.Butterfly import Butterfly
 
+import numpy as np
 
-def butterfly_algorithm_classic(iters, pop_count, function, p=0.8):
+
+def butterfly_algorithm_classic(iters, pop_count, function, function_bounds, p=0.8, dimensions=20):
     butterfly_pop = ButterflyPop(function)
-    best_x_for_printer = []
-    best_value_for_printer = []
+    boa_best_results = []
+
+    boa_best_score = np.inf
+    boa_best_coordinates = np.zeros(dimensions)
 
     for i in range(pop_count):
-        butterfly_pop.append_butterfly(Butterfly())
+        new_butterfly = Butterfly(function_bounds, dimensions)
+        new_butterfly.calculate_score(function)
+        butterfly_pop.append_butterfly(new_butterfly)
+        if new_butterfly.score < boa_best_score:
+            boa_best_score = new_butterfly.score
+            boa_best_coordinates = new_butterfly.coordinates
+
+    boa_best_results.append(boa_best_score)
 
     for c in range(iters):
-        r = random.random()
-        butterfly_pop.get_best_butterfly()
 
         for i in range(pop_count):
-            butterfly_pop.butterfly_pop[i].sniff(butterfly_pop.get_stimulus(i), butterfly_pop.force)
+            r = random.random()
+            butterfly_pop.butterfly_pop[i].sniff(random.random(), butterfly_pop.force)
             if r < p:
-                butterfly_pop.butterfly_pop[i].move_to_the_best(r, butterfly_pop.best_butterfly_value)
+                butterfly_pop.butterfly_pop[i].move_to_the_best(r, boa_best_coordinates)
             else:
                 butterfly_pop.butterfly_pop[i].move(r, butterfly_pop.random_insects())
 
         butterfly_pop.set_force(c, iters)
 
-        best_x_for_printer.append(butterfly_pop.best_butterfly)
-        best_value_for_printer.append(butterfly_pop.best_butterfly_value)
+        for i in range(pop_count):
+            new_butterfly = Butterfly(function_bounds, dimensions)
+            new_butterfly.calculate_score(function)
+            butterfly_pop.append_butterfly(new_butterfly)
+            if new_butterfly.score < boa_best_score:
+                boa_best_score = new_butterfly.score
+                boa_best_coordinates = new_butterfly.coordinates
 
-    return butterfly_pop.best_butterfly, butterfly_pop.best_butterfly_value, best_x_for_printer, best_value_for_printer
+        boa_best_results.append(boa_best_score)
+
+    return boa_best_results
