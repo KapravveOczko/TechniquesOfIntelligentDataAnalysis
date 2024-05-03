@@ -25,11 +25,11 @@ def bat_algorithm_classic(pop_count, function, function_bounds, frequency_min, f
 
         for bat in bat_pop.bat_pop:
             bat.set_position_after_setting_position(bat_pop.average_volume)
-            bat.set_volume()
-            bat.set_frequency()
-            if bat.score < bat_pop.best_bat_score:
+            if bat.volume > random.random() and bat.score < bat_pop.best_bat_score:
                 bat_pop.best_bat_score = bat.score
                 bat_pop.best_bat_coordinates = bat.coordinates
+                bat.set_volume()
+                bat.set_emission()
 
         bat_best_results.append(bat_pop.best_bat_score)
 

@@ -7,6 +7,7 @@ from localLib.Functions import *
 from bat.BatAlgorithm import BatAlgorithm
 import matplotlib.pyplot as plt
 
+
 # all
 pop_count = 500
 iters = 1000
@@ -14,20 +15,20 @@ function = rastrigin_function
 function_bounds = rastrigin_bounds
 dimensions = 20
 # bat
-frequency_min = 0.2
-frequency_max = 0.8
-loudness = 0.5
-pulse_rate = 0.5
-# boa
+frequency_min = 0
+frequency_max = 1
+alpha = 0.5
+epsilon = 0.5
+# boa, epsilon
 p = 0.8
 # boa levy
 alpha_levy = 150
 size_levy = 100
 
 if __name__ == "__main__":
-    # bat_best_results = bat_algorithm_classic(pop_count, function, function_bounds, frequency_min, frequency_max,
-    #                                                                loudness, pulse_rate, iters, dimensions)
-    bat_best_results = BatAlgorithm(pop_count, iters, loudness, pulse_rate, frequency_min, frequency_max, function_bounds['min'], function_bounds['max'], function, dimensions).bat_algorithm()
+    bat_best_results = bat_algorithm_classic(pop_count, function, function_bounds, frequency_min, frequency_max,
+                                                                   alpha, epsilon, iters, dimensions)
+    # bat_best_results = BatAlgorithm(pop_count, iters, alpha, epsilon, frequency_min, frequency_max, function_bounds['min'], function_bounds['max'], function, dimensions).bat_algorithm()
 
     # boa_best, boa_best_value, boa_x, boa_y = butterfly_algorithm_classic(iters, pop_count, function, p)
 

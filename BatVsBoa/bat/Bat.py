@@ -36,7 +36,7 @@ class Bat:
 
     def set_position_after_setting_position(self, average_volume):
         if random.random() < self.emission:
-            self.coordinates = self.coordinates + random.random() * average_volume
+            self.coordinates = self.coordinates + random.uniform(-1, 1) * average_volume
 
     def set_volume(self):
         self.volume = self.alpha * self.volume
