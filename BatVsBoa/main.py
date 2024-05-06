@@ -148,7 +148,7 @@ def generate_text_in_tex():
         f.write(r'\subsection{Dobór parametrów}' + '\n\n')
         f.write(r'W tej sekcji badaniu poddane zostaną parametry wejściowe obu algorytmów oraz ich wpływ na ostateczny wynik, w tym celu posłużymy się manipulacjami na funkcji Rastring, jej wolny spadek pozwoli dokładniej zobrazować wpływ wprowadzonych zmian.' + '\n\n')
 
-        generate_parameter_check_tex()
+    generate_parameter_check_tex()
 
 if __name__ == "__main__":
 
