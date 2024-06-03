@@ -35,6 +35,11 @@ class SMA:
 
         return self.best_value_history
 
+    def run_by_step(self, step):
+        self.update_weights(step)
+        self.update_positions()
+        return self.best_value
+
     def update_weights(self, i):
         self.w = self.w * np.exp(-i / self.iterations)
 
