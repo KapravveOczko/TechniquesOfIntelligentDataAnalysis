@@ -1,6 +1,7 @@
 
 from .slime_mould_algorithm import SMA
 from math import inf
+from random import choice
 
 class MS_SMA:
     def __init__(self, num_swarms, iterations, num_agents, dimensions, w, vb, z, func, bounds):
@@ -15,7 +16,7 @@ class MS_SMA:
         self.bounds = bounds
 
         self.best_value = inf
-        self.best_particle = None
+        self.best_particle_position = None
         self.best_value_history = []
         self.swarms = [SMA(iterations, num_agents, dimensions, w, vb, z, func, bounds) for _ in range(num_swarms)]
 
@@ -24,8 +25,12 @@ class MS_SMA:
             for swarm in self.swarms:
                 swarm_best_value = swarm.run_by_step(i)
 
+                if i != 0 and i % 100 == 0:
+                    choice(swarm.population).position = self.best_particle_position
+
                 if swarm_best_value < self.best_value:
                     self.best_value = swarm_best_value
+                    self.best_particle_position = swarm.best_position
 
             self.best_value_history.append(self.best_value)
 

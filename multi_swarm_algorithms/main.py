@@ -91,7 +91,7 @@ generate_text_in_tex()
 
 # influence_check(pso_genetic_learning_parameters, GL_PSO, [100, 300, 500, 700, 900], 'iterations', 'GL_PSO')
 # influence_check(pso_genetic_learning_parameters, GL_PSO, [50, 100, 150, 200, 250], 'population', 'GL_PSO')
-influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.9], 'w', 'GL_PSO')
+# influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.9], 'w', 'GL_PSO')
 # influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.9], 'c1', 'GL_PSO')
 # influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.9], 'c2', 'GL_PSO')
 # influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.9], 'cross_rate', 'GL_PSO')
@@ -108,14 +108,14 @@ influence_check(pso_genetic_learning_parameters, GL_PSO, [0.1, 0.3, 0.5, 0.7, 0.
 
 # # MS_SMA algorithm
 
-# ms_sma = MS_SMA(swarms, iterations, population, dimensions, sma_w, vb, z, func, bounds)
-# best_value_history = ms_sma.run()
+ms_sma = MS_SMA(swarms, iterations, population, dimensions, sma_w, vb, z, func, bounds)
+best_value_history = ms_sma.run()
 
-# iterations_tab = [i for i in range(len(best_value_history))]
+iterations_tab = [i for i in range(len(best_value_history))]
 
-# print('best value: ', best_value_history[-1])
+print('best value: ', best_value_history[-1])
 
-# draw_plot_contains_parameter_to_best_score(iterations_tab, best_value_history, 'iterations', 'Best value', 'MS_SMA', 'ms_sma')
+draw_plot_contains_parameter_to_best_score(iterations_tab, best_value_history, 'iterations', 'Best value', 'MS_SMA', 'ms_sma')
 
 
 
